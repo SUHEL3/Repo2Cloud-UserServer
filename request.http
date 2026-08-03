@@ -4,3 +4,15 @@ GET https://examples.http-client.intellij.net/get
 
 ###
 GET http://localhost:8081/repo2cloud/v1/test
+
+###
+POST http://localhost:8081/repo2cloud/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "Suhel Mujawar",
+  "email": "suhelmujawar3269@gmail.com",
+  "password": "Suhel@3269",
+  "role": "ADMIN",
+  "credits": null
+}
