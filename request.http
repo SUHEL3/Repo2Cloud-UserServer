@@ -16,3 +16,24 @@ Content-Type: application/json
   "role": "ADMIN",
   "credits": null
 }
+
+###
+POST http://localhost:8081/repo2cloud/
+Content-Type: application/json
+
+{
+"userId": 1,
+"url": "https://github.com/spring-projects/spring-petclinic",
+"status": "PENDING"
+}
+
+###
+GET http://localhost:8081/repo2cloud/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "suhelmujawar3269@gmail.com",
+  "password": "Suhel@3269Y"
+}
+
+
