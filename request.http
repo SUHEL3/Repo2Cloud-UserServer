@@ -18,7 +18,8 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8081/repo2cloud/
+POST http://localhost:8081/repo2cloud/v1/deployment/request
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjA4MTY3NiwiZXhwIjoxNzg2MDg1Mjc2fQ.G8yuGQT56c53c8vEb81V9pdeeplR7Z-djYWEuunu-Tk
 Content-Type: application/json
 
 {
@@ -28,12 +29,20 @@ Content-Type: application/json
 }
 
 ###
+GET http://localhost:8081/repo2cloud/v1/deployment/get/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjA4MTY3NiwiZXhwIjoxNzg2MDg1Mjc2fQ.G8yuGQT56c53c8vEb81V9pdeeplR7Z-djYWEuunu-Tk
+
+###
 GET http://localhost:8081/repo2cloud/v1/auth/login
 Content-Type: application/json
 
 {
   "email": "suhelmujawar3269@gmail.com",
-  "password": "Suhel@3269Y"
+  "password": "Suhel@3269"
 }
+
+###
+DELETE http://localhost:8081/repo2cloud/v1/deployment/delete/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjA4MjYwOSwiZXhwIjoxNzg2MDg2MjA5fQ.9KgHWNWGdSoqJ1sLBSaK4ZlCJf-UlI7h168KskOpTgc
 
 
