@@ -12,6 +12,7 @@ import org.example.repo2cloud.repository.DeploymentRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,20 @@ public class DeploymentService {
         deployment.setRequestedAt(LocalDateTime.now());
         deploymentRepository.save(deployment);
         return deployment.getStatus();
+    }
+
+    public List<Deployment> getAllDeployment(Long userId){
+            return deploymentRepository.getDeploymentsByUserId(userId).orElseThrow(
+                    ()-> new RuntimeException("Deployment not found.")
+            );
+    }
+
+    public String deleteDeployment(Long id){
+        Deployment deployment = deploymentRepository.findById(id).orElseThrow(
+                ()-> new RuntimeException("Deployment not found")
+        );
+        deploymentRepository.delete(deployment);
+        return "Deployment deleted successfully.";
     }
 
 }
