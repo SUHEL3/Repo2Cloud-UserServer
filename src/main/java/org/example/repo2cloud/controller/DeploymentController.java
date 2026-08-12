@@ -47,4 +47,24 @@ public class DeploymentController {
                         deploymentService.deleteDeployment(id))
         );
     }
+
+    @PatchMapping("/restart/{deploymentId}")
+    public ResponseEntity<ApiResponse<Status>> restart(
+            @PathVariable Long deploymentId
+    ){
+        return ResponseEntity.ok(
+                new ApiResponse<>("Deployment restarted",
+                        deploymentService.restart(deploymentId))
+        );
+    }
+
+    @GetMapping("/getstatus/{id}")
+    public ResponseEntity<ApiResponse<Status>> getStatus(
+            @PathVariable Long id
+    ){
+        return ResponseEntity.ok(
+                new ApiResponse<>("Deployment status",
+                        deploymentService.getDeploymentStatus(id))
+        );
+    }
  }

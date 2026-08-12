@@ -17,6 +17,4 @@ import java.time.LocalDateTime;
 public class DeploymentRequest {
     private Long userId;
     private String url;
-    @Enumerated(EnumType.STRING)
-    private Status status;
 }

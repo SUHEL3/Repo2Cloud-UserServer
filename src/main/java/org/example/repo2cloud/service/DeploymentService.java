@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.example.repo2cloud.dto.requestDTO.DeploymentRequest;
 import org.example.repo2cloud.entity.Deployment;
+import org.example.repo2cloud.entity.models.Role;
 import org.example.repo2cloud.entity.models.Status;
 import org.example.repo2cloud.repository.DeploymentRepository;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class DeploymentService {
         Deployment deployment = new Deployment();
         deployment.setUserId(request.getUserId());
         deployment.setUrl(request.getUrl());
-        deployment.setStatus(request.getStatus());
+        deployment.setStatus(Status.BUILDING);
         deployment.setRequestedAt(LocalDateTime.now());
         deploymentRepository.save(deployment);
         return deployment.getStatus();
@@ -45,4 +46,18 @@ public class DeploymentService {
         return "Deployment deleted successfully.";
     }
 
+    public Status restart(Long deploymentId){
+        Deployment deployment = deploymentRepository.findById(deploymentId).orElseThrow(
+                ()-> new RuntimeException("Deployment not found")
+        );
+        deployment.setStatus(Status.BUILDING);
+        deploymentRepository.save(deployment);
+        return deployment.getStatus();
+    }
+
+    public Status getDeploymentStatus(Long deploymentId){
+        return deploymentRepository.getStatus(deploymentId).orElseThrow(
+                ()-> new RuntimeException("Deployment not found")
+        );
+    }
 }

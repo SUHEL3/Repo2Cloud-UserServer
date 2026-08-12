@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/repo2cloud/v1/auth/**").permitAll()
+                        .requestMatchers("/sse").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/repo2cloud/v1/deployment/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
