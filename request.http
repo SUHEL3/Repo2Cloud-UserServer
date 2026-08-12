@@ -19,18 +19,17 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8081/repo2cloud/v1/deployment/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjA4MTY3NiwiZXhwIjoxNzg2MDg1Mjc2fQ.G8yuGQT56c53c8vEb81V9pdeeplR7Z-djYWEuunu-Tk
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjExOTUzOSwiZXhwIjoxNzg2MTIzMTM5fQ.nmmWeR4Trz2RJj4yXMeDlcFNt88dNbXosqIBmjjObnk
 Content-Type: application/json
 
 {
 "userId": 1,
-"url": "https://github.com/spring-projects/spring-petclinic",
-"status": "PENDING"
+"url": "https://github.com/spring-projects/spring-petclinic"
 }
 
 ###
 GET http://localhost:8081/repo2cloud/v1/deployment/get/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjA4MTY3NiwiZXhwIjoxNzg2MDg1Mjc2fQ.G8yuGQT56c53c8vEb81V9pdeeplR7Z-djYWEuunu-Tk
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjExOTUzOSwiZXhwIjoxNzg2MTIzMTM5fQ.nmmWeR4Trz2RJj4yXMeDlcFNt88dNbXosqIBmjjObnk
 
 ###
 GET http://localhost:8081/repo2cloud/v1/auth/login
@@ -43,6 +42,12 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8081/repo2cloud/v1/deployment/delete/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjA4MjYwOSwiZXhwIjoxNzg2MDg2MjA5fQ.9KgHWNWGdSoqJ1sLBSaK4ZlCJf-UlI7h168KskOpTgc
+Authorization:
 
+###
+PATCH http://localhost:8081/repo2cloud/v1/deployment/restart/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjExOTUzOSwiZXhwIjoxNzg2MTIzMTM5fQ.nmmWeR4Trz2RJj4yXMeDlcFNt88dNbXosqIBmjjObnk
 
+###
+GET http://localhost:8081/repo2cloud/v1/deployment/getstatus/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjI1NzQwMiwiZXhwIjoxNzg2MjYxMDAyfQ.ZjqCNW2Oobpwtv1kq4BvVt8GA54pO6PaOqRBKMpPcjc

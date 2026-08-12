@@ -29,4 +29,8 @@ public class Deployment {
     private Status status;
 
     private LocalDateTime requestedAt;
+
+    private Integer port;
+
+    private String deployedUrl;
 }
