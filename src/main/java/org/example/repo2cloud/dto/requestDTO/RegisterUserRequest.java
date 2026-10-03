@@ -9,10 +9,10 @@ import org.example.repo2cloud.entity.models.Role;
 @Getter
 @Setter
 public class RegisterUserRequest {
+    private String username;
     private String name;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-    private Float credits;
 }
