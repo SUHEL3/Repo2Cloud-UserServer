@@ -7,6 +7,7 @@ import org.example.repo2cloud.entity.models.Role;
 public class RegisterUserResponse {
     private String name;
     private String email;
+    private String username;
     @Enumerated(EnumType.STRING)
     private Role role;
     private Float credits;

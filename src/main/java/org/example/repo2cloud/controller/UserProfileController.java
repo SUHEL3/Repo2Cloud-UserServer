@@ -1,0 +1,40 @@
+package org.example.repo2cloud.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.example.repo2cloud.dto.requestDTO.ChangePasswordRequest;
+import org.example.repo2cloud.dto.requestDTO.UserProfileUpdateRequest;
+import org.example.repo2cloud.entity.User;
+import org.springframework.security.core.Authentication;
+import org.example.repo2cloud.auth.JwtUtil;
+import org.example.repo2cloud.dto.responseDTO.UserProfileResponse;
+import org.example.repo2cloud.service.UserProfileService;
+import org.example.repo2cloud.wrapper.ApiRoute;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping(ApiRoute.USER)
+@RequiredArgsConstructor
+public class UserProfileController {
+    private final UserProfileService userProfileService;
+    private final JwtUtil jwtUtil;
+
+    @GetMapping("/me")
+    public UserProfileResponse getMyProfile(Authentication authentication){
+        String mailId = authentication.getName();
+        return userProfileService.viewProfile(mailId);
+    }
+
+    @PatchMapping("/update")
+    public UserProfileResponse updateProfile(Authentication authentication,
+                                             @RequestBody UserProfileUpdateRequest request){
+        String mailId = authentication.getName();
+        return userProfileService.updateProfile(mailId,request);
+    }
+
+    @PatchMapping("/changePassword")
+    public String changePassword(Authentication authentication,
+                                 @RequestBody ChangePasswordRequest request){
+        String mail = authentication.getName();
+        return userProfileService.changePassword(mail,request);
+    }
+}

@@ -10,13 +10,21 @@ POST http://localhost:8081/repo2cloud/v1/auth/register
 Content-Type: application/json
 
 {
-  "name": "Suhel Mujawar",
-  "email": "suhelmujawar3269@gmail.com",
-  "password": "Suhel@3269",
-  "role": "ADMIN",
-  "credits": null
+  "name": "Faijan Mujawar",
+  "username": "legend",
+  "email": "faij123@gmail.com",
+  "password": "Suhel3269",
+  "role": "ADMIN"
 }
 
+###
+GET http://localhost:8081/repo2cloud/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "faij123@gmail.com",
+  "password": "Faijan3269"
+}
 ###
 POST http://localhost:8081/repo2cloud/v1/deployment/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjExOTUzOSwiZXhwIjoxNzg2MTIzMTM5fQ.nmmWeR4Trz2RJj4yXMeDlcFNt88dNbXosqIBmjjObnk
@@ -37,7 +45,7 @@ Content-Type: application/json
 
 {
   "email": "suhelmujawar3269@gmail.com",
-  "password": "Suhel@3269"
+  "password": "Suhel3269"
 }
 
 ###
@@ -51,3 +59,26 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlb
 ###
 GET http://localhost:8081/repo2cloud/v1/deployment/getstatus/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc4NjI1NzQwMiwiZXhwIjoxNzg2MjYxMDAyfQ.ZjqCNW2Oobpwtv1kq4BvVt8GA54pO6PaOqRBKMpPcjc
+
+###
+GET http://localhost:8081/repo2cloud/v1/user/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJmYWlqMTIzQGdtYWlsLmNvbSIsImlhdCI6MTc5MTA0MTMzOSwiZXhwIjoxNzkxMDQ0OTM5fQ.DwKSKKZmuV6hZw_Hf6glQfdQy3BIrQ3LLtn6s6tt9M8
+
+###
+PATCH http://localhost:8081/repo2cloud/v1/user/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJzdWhlbG11amF3YXIzMjY5QGdtYWlsLmNvbSIsImlhdCI6MTc5MTA0MTM4MiwiZXhwIjoxNzkxMDQ0OTgyfQ.zATXMSM1RS5ZaZUO5DokSf_hTot_9EtYvl2tqKx4f3o
+Content-Type: application/json
+
+{
+  "username": "Goat"
+}
+
+###
+PATCH http://localhost:8081/repo2cloud/v1/user/changePassword
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJmYWlqMTIzQGdtYWlsLmNvbSIsImlhdCI6MTc5MTA0MzA0MiwiZXhwIjoxNzkxMDQ2NjQyfQ.Ag4VGXsZm_x_duzPgGkKbg6yYko-Q9k4-DUZMqcZ078
+Content-Type: application/json
+
+{
+  "old_password": "Suhel3269",
+  "new_password": "Faijan3269"
+}
