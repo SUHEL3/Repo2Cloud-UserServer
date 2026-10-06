@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.repo2cloud.dto.requestDTO.ChangePasswordRequest;
 import org.example.repo2cloud.dto.requestDTO.UserProfileUpdateRequest;
 import org.example.repo2cloud.entity.User;
+import org.example.repo2cloud.wrapper.ApiResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.example.repo2cloud.auth.JwtUtil;
 import org.example.repo2cloud.dto.responseDTO.UserProfileResponse;
@@ -19,22 +21,33 @@ public class UserProfileController {
     private final JwtUtil jwtUtil;
 
     @GetMapping("/me")
-    public UserProfileResponse getMyProfile(Authentication authentication){
+    public ResponseEntity<ApiResponse<UserProfileResponse>> getMyProfile(Authentication authentication){
         String mailId = authentication.getName();
-        return userProfileService.viewProfile(mailId);
+        return ResponseEntity.ok(
+                new ApiResponse<>("Profile",
+                        userProfileService.viewProfile(mailId))
+        );
     }
 
     @PatchMapping("/update")
-    public UserProfileResponse updateProfile(Authentication authentication,
+    public ResponseEntity<ApiResponse<UserProfileResponse>> updateProfile(Authentication authentication,
                                              @RequestBody UserProfileUpdateRequest request){
         String mailId = authentication.getName();
-        return userProfileService.updateProfile(mailId,request);
+        return ResponseEntity.ok(
+                new ApiResponse<>("Profile updated successfully",
+                        userProfileService.updateProfile(mailId,request))
+        );
     }
 
     @PatchMapping("/changePassword")
-    public String changePassword(Authentication authentication,
+    public ResponseEntity<ApiResponse<String>> changePassword(Authentication authentication,
                                  @RequestBody ChangePasswordRequest request){
         String mail = authentication.getName();
-        return userProfileService.changePassword(mail,request);
+        return ResponseEntity.ok(
+                new ApiResponse<>(
+                        "Password changed successfully",
+                        userProfileService.changePassword(mail,request)
+                )
+        );
     }
 }
