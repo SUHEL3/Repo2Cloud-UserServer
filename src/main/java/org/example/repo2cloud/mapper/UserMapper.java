@@ -10,8 +10,6 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.stereotype.Component;
 
-import java.lang.annotation.Target;
-
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     User toUser(RegisterUserRequest request);

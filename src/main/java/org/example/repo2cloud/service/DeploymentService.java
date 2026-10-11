@@ -1,63 +1,70 @@
-//package org.example.repo2cloud.service;
-//
-//import jakarta.persistence.EnumType;
-//import jakarta.persistence.Enumerated;
-//import lombok.Getter;
-//import lombok.RequiredArgsConstructor;
-//import lombok.Setter;
-//import org.example.repo2cloud.dto.requestDTO.DeploymentRequest;
-//import org.example.repo2cloud.entity.Deployment;
-//import org.example.repo2cloud.entity.models.Role;
-//import org.example.repo2cloud.entity.models.Status;
-//import org.example.repo2cloud.repository.DeploymentRepository;
-//import org.springframework.stereotype.Service;
-//
-//import java.time.LocalDateTime;
-//import java.util.List;
-//
-//@Service
-//@RequiredArgsConstructor
-//@Getter
-//@Setter
-//public class DeploymentService {
-//    private final DeploymentRepository deploymentRepository;
-//
-//    public Status requestDeployment(DeploymentRequest request){
-//        Deployment deployment = new Deployment();
-//        deployment.setUserId(request.getUserId());
-//        deployment.setUrl(request.getUrl());
-//        deployment.setStatus(Status.BUILDING);
-//        deployment.setRequestedAt(LocalDateTime.now());
-//        deploymentRepository.save(deployment);
-//        return deployment.getStatus();
-//    }
-//
-//    public List<Deployment> getAllDeployment(Long userId){
-//            return deploymentRepository.getDeploymentsByUserId(userId).orElseThrow(
-//                    ()-> new RuntimeException("Deployment not found.")
-//            );
-//    }
-//
-//    public String deleteDeployment(Long id){
-//        Deployment deployment = deploymentRepository.findById(id).orElseThrow(
-//                ()-> new RuntimeException("Deployment not found")
-//        );
-//        deploymentRepository.delete(deployment);
-//        return "Deployment deleted successfully.";
-//    }
-//
-//    public Status restart(Long deploymentId){
-//        Deployment deployment = deploymentRepository.findById(deploymentId).orElseThrow(
-//                ()-> new RuntimeException("Deployment not found")
-//        );
-//        deployment.setStatus(Status.BUILDING);
-//        deploymentRepository.save(deployment);
-//        return deployment.getStatus();
-//    }
-//
-//    public Status getDeploymentStatus(Long deploymentId){
-//        return deploymentRepository.getStatus(deploymentId).orElseThrow(
-//                ()-> new RuntimeException("Deployment not found")
-//        );
-//    }
-//}
+package org.example.repo2cloud.service;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.example.repo2cloud.client.BuildServerClient;
+import org.example.repo2cloud.dto.build_server_DTO.DeployRequestDto;
+import org.example.repo2cloud.dto.build_server_DTO.DeploymentDto;
+import org.example.repo2cloud.dto.build_server_DTO.DeploymentLogDto;
+import org.example.repo2cloud.dto.build_server_DTO.DeploymentResponseDto;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * Service orchestrating deployment operations between the User Server
+ * and the Build Server via {@link BuildServerClient}.
+ *
+ * <p>Flow: Controller → DeploymentService → BuildServerClient → RestClient → Build Server</p>
+ */
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class DeploymentService {
+
+    private final BuildServerClient buildServerClient;
+
+    public DeploymentResponseDto deploy(DeployRequestDto request) {
+        log.info("Triggering deployment on Build Server for repository: {}, branch: {}, deploymentId: {}",
+                request.getRepositoryUrl(), request.getBranch(), request.getDeploymentId());
+        return buildServerClient.deploy(request);
+    }
+
+    public DeploymentResponseDto getDeployment(Long id) {
+        log.info("Fetching deployment status for deploymentId: {}", id);
+        return buildServerClient.getDeployment(id);
+    }
+
+
+    public List<DeploymentResponseDto> getAllDeployments() {
+        log.info("Fetching all deployments from Build Server");
+        return buildServerClient.getAllDeployments();
+    }
+
+    public List<DeploymentLogDto> getLogs(Long id) {
+        log.info("Fetching logs for deploymentId: {}", id);
+        return buildServerClient.getLogs(id);
+    }
+
+    public DeploymentResponseDto stop(Long id) {
+        log.info("Requesting stop for deploymentId: {}", id);
+        return buildServerClient.stop(id);
+    }
+
+
+    public void delete(Long id) {
+        log.info("Requesting deletion of deploymentId: {}", id);
+        buildServerClient.delete(id);
+    }
+
+
+    public DeploymentResponseDto start(Long id) {
+        log.info("Requesting start for deploymentId: {}", id);
+        return buildServerClient.start(id);
+    }
+
+    public List<DeploymentDto> getDeploymentsByUser(Long userId) {
+        log.info("Fetching deployments for userId: {}", userId);
+        return buildServerClient.getDeploymentsByUser(userId);
+    }
+}
